@@ -3,11 +3,12 @@ package goconf
 import (
 	"bufio"
 	"fmt"
-	"github.com/karrick/congomap"
 	"os"
 	"regexp"
 	"strings"
 	"time"
+
+	"github.com/karrick/congomap"
 )
 
 // DefaultSectionName is the name of the default config section.  Any key-value pairs stored before
@@ -84,8 +85,8 @@ func (c *Config) Section(section string) (map[string]string, error) {
 }
 
 // Close frees and releases resources consumed by Config data structure when no longer needed.
-func (c *Config) Close() {
-	c.cgm.Close()
+func (c *Config) Close() error {
+	return c.cgm.Close()
 }
 
 func parseConfigFile(pathname string) (conf map[string]map[string]string, err error) {
