@@ -101,6 +101,8 @@ func parseConfigFile(pathname string) (conf map[string]map[string]string, err er
 	sectionRe := regexp.MustCompile("^\\[([^\\]]+)\\]$")
 	keyValRe := regexp.MustCompile("^([^=]+)\\s*=\\s*(.+)$")
 
+	conf[section] = make(map[string]string) // always a default section
+
 	for buf.Scan() {
 		line := buf.Text()
 		if comment := strings.IndexByte(line, ';'); comment >= 0 {
