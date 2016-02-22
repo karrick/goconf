@@ -8,7 +8,7 @@ import (
 	"strings"
 	"time"
 
-	"github.com/karrick/congomap"
+	congomap "gopkg.in/karrick/congomap.v1"
 )
 
 // DefaultSectionName is the name of the default config section.  Any key-value pairs stored before
