@@ -8,11 +8,12 @@ import (
 	"strings"
 	"time"
 
-	congomap "gopkg.in/karrick/congomap.v1"
+	congomap "github.com/karrick/congomap/v2"
 )
 
-// DefaultSectionName is the name of the default config section.  Any key-value pairs stored before
-// any `[name]` blocks are stored in the default section name.
+// DefaultSectionName is the name of the default config section.  Any key-value
+// pairs stored before any `[name]` blocks are stored in the default section
+// name.
 const DefaultSectionName = "General"
 
 // Config is a data structure used to maintain an applications configuration.
@@ -22,7 +23,8 @@ type Config struct {
 	ttl      time.Duration
 }
 
-// ConfigSetter is a function that mutates a new Config instance during instantiation.
+// ConfigSetter is a function that mutates a new Config instance during
+// instantiation.
 type ConfigSetter func(*Config) error
 
 // New returns a new Config data structure.
@@ -49,7 +51,8 @@ func New(pathname string, setters ...ConfigSetter) (*Config, error) {
 	return c, nil
 }
 
-// TTL mutates a new Config data structure to control how often values are refreshed.
+// TTL mutates a new Config data structure to control how often values are
+// refreshed.
 func TTL(ttl time.Duration) func(*Config) error {
 	return func(c *Config) error {
 		if ttl <= 0 {
@@ -74,8 +77,9 @@ func (c *Config) lookupSection() func(string) (interface{}, error) {
 	}
 }
 
-// Section returns a map of the key-value pairs for a specified section of the configuration file.
-// The default section name is stored in `DefaultSectionName`.
+// Section returns a map of the key-value pairs for a specified section of the
+// configuration file.  The default section name is stored in
+// `DefaultSectionName`.
 func (c *Config) Section(section string) (map[string]string, error) {
 	dict, err := c.cgm.LoadStore(section)
 	if err != nil {
@@ -84,7 +88,8 @@ func (c *Config) Section(section string) (map[string]string, error) {
 	return dict.(map[string]string), nil
 }
 
-// Close frees and releases resources consumed by Config data structure when no longer needed.
+// Close frees and releases resources consumed by Config data structure when no
+// longer needed.
 func (c *Config) Close() error {
 	return c.cgm.Close()
 }
